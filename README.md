@@ -62,9 +62,14 @@ Project Team Bookmarks
 
 Workflow:
 
-```text
-Curate team URLs -> Organize by workflow -> Export HTML -> Share with new joiners -> Import into browser
+```mermaid
+flowchart LR
+    A[Curate Team URLs] --> B[Organize by Workflow]
+    B --> C[Export HTML]
+    C --> D[Share with New Joiners]
+    D --> E[Import into Browser]
 ```
+
 
 ## Browser Support
 
