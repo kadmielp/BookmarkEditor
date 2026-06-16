@@ -790,6 +790,7 @@
         addDate: data.addDate || Math.floor(Date.now() / 1000),
         lastModified: data.lastModified || Math.floor(Date.now() / 1000),
         icon: data.icon || '',
+        extraAttrs: data.extraAttrs || {},
         children: type === 'folder' ? (data.children || []) : undefined
       };
     }
@@ -820,6 +821,7 @@
             currentFolder = createNode('folder', text(h3) || 'Untitled folder', {
               addDate: numberAttr(h3, 'add_date'),
               lastModified: numberAttr(h3, 'last_modified'),
+              extraAttrs: collectExtraAttrs(h3, ['add_date', 'last_modified']),
               children: []
             });
             parent.children.push(currentFolder);
@@ -829,7 +831,8 @@
               url: a.getAttribute('href') || '',
               addDate: numberAttr(a, 'add_date'),
               lastModified: numberAttr(a, 'last_modified'),
-              icon: a.getAttribute('icon') || ''
+              icon: a.getAttribute('icon') || '',
+              extraAttrs: collectExtraAttrs(a, ['href', 'add_date', 'last_modified', 'icon'])
             }));
           }
         } else if (tag === 'dl' && currentFolder) {
@@ -849,6 +852,15 @@
     function numberAttr(node, name) {
       const value = Number(node.getAttribute(name));
       return Number.isFinite(value) && value > 0 ? value : Math.floor(Date.now() / 1000);
+    }
+
+    function collectExtraAttrs(node, knownNames) {
+      const known = new Set(knownNames.map((name) => name.toLowerCase()));
+      const attrs = {};
+      for (const attr of Array.from(node.attributes || [])) {
+        if (!known.has(attr.name.toLowerCase())) attrs[attr.name.toUpperCase()] = attr.value;
+      }
+      return attrs;
     }
 
     function flatten(node = state.root, parent = null, path = []) {
@@ -1151,14 +1163,21 @@ ${root.children.map((child) => serializeNode(child, 1)).join('')}
     function serializeNode(node, depth) {
       const indent = '    '.repeat(depth);
       if (node.type === 'folder') {
-        return `${indent}<DT><H3 ADD_DATE="${node.addDate}" LAST_MODIFIED="${node.lastModified}">${escapeHtml(node.title)}</H3>
+        return `${indent}<DT><H3 ADD_DATE="${node.addDate}" LAST_MODIFIED="${node.lastModified}"${attrsToString(node.extraAttrs)}>${escapeHtml(node.title)}</H3>
 ${indent}<DL><p>
 ${node.children.map((child) => serializeNode(child, depth + 1)).join('')}${indent}</DL><p>
 `;
       }
       const icon = node.icon ? ` ICON="${escapeAttr(node.icon)}"` : '';
-      return `${indent}<DT><A HREF="${escapeAttr(node.url)}" ADD_DATE="${node.addDate}"${icon}>${escapeHtml(node.title)}</A>
+      return `${indent}<DT><A HREF="${escapeAttr(node.url)}" ADD_DATE="${node.addDate}" LAST_MODIFIED="${node.lastModified}"${icon}${attrsToString(node.extraAttrs)}>${escapeHtml(node.title)}</A>
 `;
+    }
+
+    function attrsToString(attrs) {
+      return Object.entries(attrs || {})
+        .filter(([name]) => !['HREF', 'ADD_DATE', 'LAST_MODIFIED', 'ICON'].includes(name.toUpperCase()))
+        .map(([name, value]) => ` ${name.toUpperCase()}="${escapeAttr(value)}"`)
+        .join('');
     }
 
     function escapeHtml(value) {
