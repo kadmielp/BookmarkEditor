@@ -17,7 +17,6 @@ Organize, edit, and export browser bookmarks locally with zero installation. Per
 | :--- | :--- | :--- |
 | **Workspace Isolation** | Modifies your active browser profile bookmarks | Sandbox environment; edit files without altering your personal bookmarks |
 | **Onboarding & Curation** | Hard to isolate, organize, and export specific sub-folders for others | Designed to curate clean, role-specific "packs" of links for teams |
-| **Privacy & Security** | Data synced to browser cloud accounts | 100% local, offline, client-side only (no cloud sync leaks) |
 | **Setup** | Built-in but lacks bulk curation & staging features | Zero install, zero dependencies; works on any machine |
 
 ## What It Does
