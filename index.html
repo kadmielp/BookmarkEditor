@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LinKit</title>
+  <title>LinkIn Pack</title>
   <script>
     (() => {
       try {
-        if (localStorage.getItem('linKitTheme') === 'dark') {
+        if (localStorage.getItem('linkInPackTheme') === 'dark') {
           document.documentElement.dataset.theme = 'dark';
         }
       } catch (error) {
@@ -947,7 +947,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1Z"></path></svg>
         </div>
         <div>
-          <h1>LinKit</h1>
+          <h1>LinkIn Pack</h1>
           <p>Edit exported browser bookmarks locally in this HTML file.</p>
         </div>
       </div>
@@ -1191,7 +1191,7 @@
       els.themeBtn.title = label;
       els.themeBtn.setAttribute('aria-label', label);
       try {
-        localStorage.setItem('linKitTheme', nextTheme);
+        localStorage.setItem('linkInPackTheme', nextTheme);
       } catch (error) {
         // Theme persistence is optional; the visible toggle still works.
       }
