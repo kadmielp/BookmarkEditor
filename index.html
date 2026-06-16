@@ -477,6 +477,7 @@
       border-bottom: 1px solid var(--line-soft);
       border-radius: 0;
       position: relative;
+      cursor: pointer;
     }
 
     .item-row:hover {
@@ -497,10 +498,6 @@
     .item-row.selected .item-url {
       color: #006b74;
       font-weight: 620;
-    }
-
-    .item-row.folder-row {
-      cursor: pointer;
     }
 
     .item-row.folder-row:hover {
@@ -1276,7 +1273,6 @@
         urlTarget.textContent = node.type === 'folder' ? `${node.children.length} items` : node.url;
         urlTarget.title = node.type === 'folder' ? 'Select folder' : `Select bookmark URL: ${node.url}`;
         urlTarget.setAttribute('aria-label', node.type === 'folder' ? `Select folder ${node.title || '(untitled)'}` : `Select bookmark URL ${node.url}`);
-        urlTarget.addEventListener('click', () => selectNode(node.id));
         const buttons = row.querySelector('.item-actions').querySelectorAll('button');
         buttons[0].disabled = Boolean(filter) || index === 0;
         buttons[1].disabled = Boolean(filter) || index === rows.length - 1;
@@ -1287,6 +1283,10 @@
           if (!filter) moveWithinFolder(folder, index, index + 1);
         });
         buttons[2].addEventListener('click', () => selectNode(node.id));
+        row.addEventListener('click', (event) => {
+          if (event.target.closest('.item-actions')) return;
+          selectNode(node.id);
+        });
         row.addEventListener('dblclick', (event) => {
           if (event.target.closest('button')) return;
           if (node.type === 'folder') selectNode(node.id);
