@@ -28,7 +28,7 @@ Organize, edit, and export browser bookmarks locally with zero installation. Per
 5. Click **Export HTML**.
 6. Import the new file back into your browser.
 
-## Project Management Onboarding Use Case
+## Team & Enterprise Use Case
 
 Project managers and team leads can use this to prepare a clean bookmark file for new joiners.
 
