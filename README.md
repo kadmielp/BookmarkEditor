@@ -64,11 +64,19 @@ Workflow:
 
 ```mermaid
 flowchart LR
-    A[Curate Team URLs] --> B[Organize by Workflow]
-    B --> C[Export HTML]
-    C --> D[Share with New Joiners]
-    D --> E[Import into Browser]
+    subgraph Lead["Project Manager / Team Lead"]
+        A[Curate Team URLs] --> B[Organize by Workflow]
+        B --> C[Export HTML]
+        C --> D[Share with New Joiners]
+    end
+
+    subgraph Joiner["New Joiner"]
+        E[Import into Browser]
+    end
+
+    D --> E
 ```
+
 
 
 ## Browser Support
