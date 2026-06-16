@@ -11,7 +11,7 @@ Organize, edit, and export browser bookmarks locally with zero installation. Per
 - No upload
 - Works by opening `index.html` in a browser
 
-## Why Use LinkIn Pack Over Regular Browser Bookmarks?
+## Why Use LinkIn Pack Over Built-In Browser Bookmarks?
 
 | Feature | Browser Bookmark Manager | LinkIn Pack |
 | :--- | :--- | :--- |
