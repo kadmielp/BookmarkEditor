@@ -669,6 +669,19 @@
       margin-bottom: 6px;
     }
 
+    .empty-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .empty-actions button {
+      min-width: 124px;
+    }
+
     .toast {
       position: fixed;
       right: 18px;
@@ -1213,9 +1226,26 @@
         : (folder ? `${folder.title} contains ${folder.children.length} items` : 'Root bookmark folder');
 
       if (!rows.length) {
-        els.items.innerHTML = filter
-          ? '<div class="empty"><div><strong>No matches found</strong><span>Try another title, URL, or folder name.</span></div></div>'
-          : '<div class="empty"><div><strong>This folder is empty</strong><span>Add a bookmark or folder to start organizing.</span></div></div>';
+        els.items.innerHTML = '';
+        const empty = document.createElement('div');
+        empty.className = 'empty';
+        if (filter) {
+          empty.innerHTML = '<div><strong>No matches found</strong><span>Try another title, URL, or folder name.</span></div>';
+        } else {
+          empty.innerHTML = `
+            <div>
+              <strong>This folder is empty</strong>
+              <span>Add a URL or folder to start organizing.</span>
+              <div class="empty-actions">
+                <button type="button" data-empty-action="bookmark">Add URL</button>
+                <button type="button" data-empty-action="folder">Add folder</button>
+              </div>
+            </div>
+          `;
+          empty.querySelector('[data-empty-action="bookmark"]').addEventListener('click', () => addNode('bookmark'));
+          empty.querySelector('[data-empty-action="folder"]').addEventListener('click', () => addNode('folder'));
+        }
+        els.items.appendChild(empty);
         return;
       }
 
