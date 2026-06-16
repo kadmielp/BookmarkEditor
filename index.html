@@ -17,16 +17,16 @@
   </script>
   <style>
     :root {
-      --bg: #f4f7fa;
+      --bg: #f4f6f9;
       --panel: #ffffff;
       --panel-2: #f8fafc;
-      --text: #151d28;
+      --text: #16202c; /* logo dark charcoal */
       --muted: #647184;
       --line: #d8e0ea;
       --line-soft: #edf2f7;
-      --accent: #008894;
-      --accent-dark: #006b74;
-      --accent-soft: #e7f7f8;
+      --accent: #0062ff; /* logo electric blue */
+      --accent-dark: #004ecc;
+      --accent-soft: #ebf3ff;
       --danger: #b42318;
       --danger-bg: #fff0ed;
       --ok: #287d3c;
@@ -38,16 +38,16 @@
     }
 
     :root[data-theme="dark"] {
-      --bg: #111827;
-      --panel: #18212f;
-      --panel-2: #121a25;
-      --text: #e8eef8;
+      --bg: #0f1620; /* base dark grey/slate */
+      --panel: #16202c; /* logo dark charcoal */
+      --panel-2: #1c2938;
+      --text: #f0f4f9;
       --muted: #94a3b8;
       --line: #334155;
       --line-soft: #243244;
-      --accent: #26c6da;
-      --accent-dark: #67e8f9;
-      --accent-soft: #123842;
+      --accent: #3385ff; /* bright electric blue for dark mode readability */
+      --accent-dark: #66a3ff;
+      --accent-soft: #14284d;
       --danger: #ff8a80;
       --danger-bg: #3f1d20;
       --ok: #7ddc91;
@@ -71,7 +71,7 @@
 
     :root[data-theme="dark"] body {
       background:
-        linear-gradient(180deg, #1d2838 0, var(--bg) 150px),
+        linear-gradient(180deg, #1c2938 0, var(--bg) 150px),
         var(--bg);
     }
 
@@ -113,7 +113,7 @@
       background: var(--accent);
       border-color: var(--accent);
       color: #fff;
-      box-shadow: 0 8px 20px rgba(0, 136, 148, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 85, 255, 0.2);
     }
 
     button.primary:hover {
@@ -211,12 +211,12 @@
       place-items: center;
       flex: 0 0 auto;
       border: 2px solid var(--accent);
-      box-shadow: 0 8px 24px rgba(0, 136, 148, 0.12);
+      box-shadow: 0 8px 24px rgba(0, 85, 255, 0.12);
     }
 
     :root[data-theme="dark"] .brand-mark {
-      background: #0f172a;
-      box-shadow: 0 8px 24px rgba(38, 198, 218, 0.16);
+      background: #0f1620;
+      box-shadow: 0 8px 24px rgba(51, 133, 255, 0.16);
     }
 
     .brand h1 {
@@ -474,21 +474,21 @@
     }
 
     .tree-row.selected {
-      background: #d8f3f6;
-      border-color: #63c8d2;
-      color: #043e47;
-      box-shadow: inset 4px 0 0 var(--accent), 0 8px 20px rgba(0, 136, 148, 0.08);
+      background: #ebf3ff;
+      border-color: #adcaff;
+      color: #0a2c5c;
+      box-shadow: inset 4px 0 0 var(--accent), 0 8px 20px rgba(0, 85, 255, 0.08);
       font-weight: 760;
     }
 
     :root[data-theme="dark"] .tree-row:hover {
-      background: #202d3f;
+      background: #1c2938;
     }
 
     :root[data-theme="dark"] .tree-row.selected {
-      background: #123842;
-      border-color: #1c8c9d;
-      color: #dffcff;
+      background: #14284d;
+      border-color: #3385ff;
+      color: #f0f7ff;
       box-shadow: inset 4px 0 0 var(--accent);
     }
 
@@ -592,64 +592,64 @@
     }
 
     .item-row:hover {
-      background: #eef9fb;
-      box-shadow: inset 3px 0 0 #72cdd6;
+      background: #ebf3ff;
+      box-shadow: inset 3px 0 0 #3385ff;
     }
 
     .item-row.selected {
-      background: #e3f8fa;
+      background: #dbebff;
       box-shadow: inset 4px 0 0 var(--accent);
     }
 
     .item-row.selected .item-title {
-      color: #043e47;
+      color: #0a2c5c;
       font-weight: 780;
     }
 
     .item-row.selected .item-url {
-      color: #006b74;
+      color: #004ecc;
       font-weight: 620;
     }
 
     .item-row.folder-row:hover {
-      background: #eaf8fa;
+      background: #f0f6ff;
     }
 
     .item-row:hover .item-title {
-      color: #043e47;
+      color: #0a2c5c;
     }
 
     .item-row:hover .item-url {
-      color: #0f6570;
+      color: #0055ff;
     }
 
     .item-row:has(.item-actions button:last-child:hover),
     .item-row:has(.item-actions button:last-child:focus-visible) {
-      background: #e4f6f8;
-      box-shadow: inset 3px 0 0 #72cdd6;
+      background: #ebf3ff;
+      box-shadow: inset 3px 0 0 #3385ff;
     }
 
     :root[data-theme="dark"] .item-row:hover,
     :root[data-theme="dark"] .item-row.folder-row:hover,
     :root[data-theme="dark"] .item-row:has(.item-actions button:last-child:hover),
     :root[data-theme="dark"] .item-row:has(.item-actions button:last-child:focus-visible) {
-      background: #1f3444;
-      box-shadow: inset 3px 0 0 #1fa8b7;
+      background: #1c2938;
+      box-shadow: inset 3px 0 0 var(--accent);
     }
 
     :root[data-theme="dark"] .item-row.selected {
-      background: #123842;
+      background: #14284d;
       box-shadow: inset 4px 0 0 var(--accent);
     }
 
     :root[data-theme="dark"] .item-row:hover .item-title,
     :root[data-theme="dark"] .item-row.selected .item-title {
-      color: #ecfeff;
+      color: #f0f7ff;
     }
 
     :root[data-theme="dark"] .item-row:hover .item-url,
     :root[data-theme="dark"] .item-row.selected .item-url {
-      color: #9eeaf3;
+      color: #99c2ff;
     }
 
     .item-main {
@@ -738,18 +738,18 @@
     .type-symbol {
       width: 34px;
       height: 34px;
-      border: 1px solid #b5e4ea;
+      border: 1px solid #adcaff;
       border-radius: 8px;
       display: grid;
       place-items: center;
       color: var(--accent-dark);
-      background: #eaf8fa;
+      background: #ebf3ff;
       flex: 0 0 auto;
     }
 
     :root[data-theme="dark"] .type-symbol {
-      border-color: #1c8c9d;
-      background: #123842;
+      border-color: #3385ff;
+      background: #14284d;
     }
 
     .type-symbol svg {
