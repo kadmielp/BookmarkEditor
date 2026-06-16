@@ -171,30 +171,57 @@
       justify-content: flex-end;
     }
 
-    .export-help {
+    .open-file-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-button {
+      border-color: #b9dfe7;
       background: #eaf6f8;
-      border-bottom: 1px solid #c8e6ec;
-      padding: 12px 20px;
+      color: var(--accent-dark);
     }
 
-    .export-help details {
-      max-width: 1180px;
-      margin: 0 auto;
+    .info-button:hover {
+      background: #d6eef2;
+      border-color: #91ceda;
     }
 
-    .export-help summary {
-      cursor: pointer;
-      color: #123f4a;
-      font-weight: 720;
-      line-height: 1.35;
+    .modal {
+      border: 0;
+      border-radius: 10px;
+      box-shadow: 0 24px 70px rgba(16, 24, 40, 0.22);
+      max-width: min(920px, calc(100vw - 28px));
+      width: 920px;
+      padding: 0;
     }
 
-    .export-help summary::marker {
-      color: var(--accent);
+    .modal::backdrop {
+      background: rgba(16, 24, 40, 0.38);
     }
 
-    .export-help p {
-      margin: 8px 0 0;
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-head h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .modal-body {
+      padding: 16px 18px 18px;
+    }
+
+    .modal-body p {
+      margin: 0;
       color: #31515b;
       font-size: 13px;
       line-height: 1.45;
@@ -560,6 +587,15 @@
         flex-direction: column;
       }
 
+      .open-file-group {
+        align-items: stretch;
+      }
+
+      .info-button {
+        width: 36px;
+        align-self: center;
+      }
+
       .content-head {
         display: grid;
       }
@@ -597,15 +633,25 @@
       </div>
       <div class="header-actions">
         <input id="fileInput" class="file-input" type="file" accept=".html,.htm,text/html" tabindex="-1" aria-hidden="true">
-        <button id="openBtn" class="primary" type="button">Open bookmark file</button>
+        <div class="open-file-group">
+          <button id="openBtn" class="primary" type="button">Open bookmark file</button>
+          <button id="helpBtn" class="icon info-button" type="button" title="How to export bookmarks" aria-label="How to export bookmarks">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+          </button>
+        </div>
         <button id="sampleBtn" type="button">Load sample</button>
         <button id="exportBtn" type="button" disabled>Export HTML</button>
       </div>
     </header>
 
-    <section class="export-help" aria-label="How to export bookmarks from your browser">
-      <details>
-        <summary>How to export bookmarks from your browser</summary>
+    <dialog id="helpDialog" class="modal" aria-labelledby="helpTitle">
+      <div class="modal-head">
+        <h2 id="helpTitle">How to export bookmarks</h2>
+        <button id="closeHelpBtn" class="icon" type="button" title="Close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+      </div>
+      <div class="modal-body">
         <p>Export bookmarks as an HTML file, then open that file here. Browser internal links may need to be copied into the address bar if your browser blocks direct navigation from this page.</p>
         <div class="browser-grid">
           <article class="browser-guide">
@@ -661,8 +707,8 @@
             </ol>
           </article>
         </div>
-      </details>
-    </section>
+      </div>
+    </dialog>
 
     <main>
       <section class="panel sidebar" aria-label="Bookmark folders">
@@ -750,6 +796,9 @@
     const els = {
       fileInput: document.getElementById('fileInput'),
       openBtn: document.getElementById('openBtn'),
+      helpBtn: document.getElementById('helpBtn'),
+      helpDialog: document.getElementById('helpDialog'),
+      closeHelpBtn: document.getElementById('closeHelpBtn'),
       sampleBtn: document.getElementById('sampleBtn'),
       exportBtn: document.getElementById('exportBtn'),
       searchInput: document.getElementById('searchInput'),
@@ -1229,6 +1278,17 @@ ${node.children.map((child) => serializeNode(child, depth + 1)).join('')}${inden
     }
 
     els.openBtn.addEventListener('click', () => els.fileInput.click());
+    els.helpBtn.addEventListener('click', () => {
+      if (typeof els.helpDialog.showModal === 'function') {
+        els.helpDialog.showModal();
+      } else {
+        els.helpDialog.setAttribute('open', '');
+      }
+    });
+    els.closeHelpBtn.addEventListener('click', () => els.helpDialog.close());
+    els.helpDialog.addEventListener('click', (event) => {
+      if (event.target === els.helpDialog) els.helpDialog.close();
+    });
     els.fileInput.addEventListener('change', async () => {
       const file = els.fileInput.files[0];
       if (!file) return;
