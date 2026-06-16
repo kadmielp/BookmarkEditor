@@ -1166,7 +1166,8 @@
       up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m18 15-6-6-6 6"></path></svg>',
       down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m6 9 6 6 6-6"></path></svg>',
       moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3a6.7 6.7 0 0 0 8.9 8.9 8 8 0 1 1-8.9-8.9Z"></path></svg>',
-      sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>'
+      sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>',
+      external: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>'
     };
 
     function currentTheme() {
@@ -1447,7 +1448,7 @@
           <button class="icon" type="button" title="Move down" aria-label="Move down">${icons.down}</button>
         `;
         if (node.type === 'bookmark') {
-          actionsHtml += `<button type="button">Open</button>`;
+          actionsHtml += `<button class="icon" type="button" title="Open URL in new tab" aria-label="Open URL in new tab">${icons.external}</button>`;
         }
 
         row.innerHTML = `
