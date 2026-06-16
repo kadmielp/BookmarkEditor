@@ -1441,6 +1441,15 @@
         row.className = `item-row${node.id === state.selectedId ? ' selected' : ''}${node.type === 'folder' ? ' folder-row' : ''}`;
         row.dataset.nodeId = node.id;
         row.dataset.nodeType = node.type;
+
+        let actionsHtml = `
+          <button class="icon" type="button" title="Move up" aria-label="Move up">${icons.up}</button>
+          <button class="icon" type="button" title="Move down" aria-label="Move down">${icons.down}</button>
+        `;
+        if (node.type === 'bookmark') {
+          actionsHtml += `<button type="button">Open</button>`;
+        }
+
         row.innerHTML = `
           <div aria-hidden="true">${node.type === 'folder' ? icons.folder : icons.link}</div>
           <div class="item-main">
@@ -1448,9 +1457,7 @@
           </div>
           <button class="item-url" type="button"></button>
           <div class="item-actions">
-            <button class="icon" type="button" title="Move up" aria-label="Move up">${icons.up}</button>
-            <button class="icon" type="button" title="Move down" aria-label="Move down">${icons.down}</button>
-            <button type="button">Select</button>
+            ${actionsHtml}
           </div>
         `;
         row.querySelector('.item-title').textContent = node.title || '(untitled)';
@@ -1467,7 +1474,12 @@
         buttons[1].addEventListener('click', () => {
           if (!filter) moveWithinFolder(currentFolder, index, index + 1);
         });
-        buttons[2].addEventListener('click', () => selectNode(node.id));
+        if (node.type === 'bookmark') {
+          buttons[2].addEventListener('click', (event) => {
+            event.stopPropagation();
+            window.open(node.url, '_blank', 'noopener,noreferrer');
+          });
+        }
         row.addEventListener('click', (event) => {
           if (event.target.closest('.item-actions')) return;
           selectNode(node.id);
